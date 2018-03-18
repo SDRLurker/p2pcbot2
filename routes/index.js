@@ -90,7 +90,7 @@ router.post('/:sessid/conds', (req, res, next) => {
     res.status(400).send({'error':'currency, code, 또는 val 값이 있어야 합니다!'});
     return;
   } else if (isNaN(val)) {
-    res.status(400).send({'error':'val 값은 숫자여야 합니다!'});
+    res.status(400).send({'error':'값은 숫자여야 합니다!'});
     return;
   }
   pool.getConnection((err, conn) => {
@@ -104,9 +104,11 @@ router.post('/:sessid/conds', (req, res, next) => {
         return;
       }
       update_session_expire(sessid);
+      if(rows[0]['c'] >= 15) {
+        res.status(400).send({'error':'알림 조건은 최대 15개 까지 설정 가능합니다'});
+        return;
+      }
       id = rows[0]['m'];
-      // [0]['c']에 따라 조건 개수 제약 기능.
-      // console.log(id);
       if(rows[0]['c'] == 0)
         id = 1;
 
@@ -142,6 +144,7 @@ function rollback(err, conn){
   console.error(err);
   conn.rollback(function () {
     console.error('rollback error');
+    conn.release();
   });
 }
 // delete, http://localhost:3000/conds/삭제할번호

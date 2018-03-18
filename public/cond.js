@@ -5,39 +5,39 @@ function mainController($scope, $http) {
     var link = document.location.href;
     var slash = link.lastIndexOf('/');
     var sess_id = link.substring(slash+1);
-    //console.log(link.substring(slash+1));
 
-    // Todo 얻기
+    // 조건 얻기
     $http.get('/'+sess_id+'/conds')
         .success(function(data) {
+            $scope.err='';
             $scope.conds = data;
         }).error(function(err) {
-            console.log('err=' + err);
+            $scope.err=err.error;
+            console.log('err=',err.error);
         });
 
-    // Todo 저장
+    // 조건 저장
     $scope.createCond = function() {
-        console.log($scope.formData);
         $http.post('/'+sess_id+'/conds', $scope.formData)
             .success(function(data) {
+                $scope.err='';
                 $scope.formData = {};
                 $scope.conds = data;
-                console.log(data);
             }).error(function(err) {
-                console.log('err=' + err);
+                $scope.err=err.error;
+                console.log('err=',err.error);
             });
     }//createCond
 
-    // Todo 삭제
+    // 조건 삭제
     $scope.deleteCond = function(id) {
-        console.log(sess_id, id);
         $http.delete('/'+sess_id+'/conds/' + id)
             .success(function(data) {
-                console.log(data);
+                $scope.err='';
                 $scope.conds = data;
             }).error(function(err) {
-                console.log('err=' + err);
+                $scope.err=err.error;
+                console.log('err=',err);
             });
     }//deleteCond
-
 }//mainController
