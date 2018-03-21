@@ -1,20 +1,7 @@
 var myCond = angular.module('myCond', []);
 
-myCond.directive('ads', function() {
-  return {
-    restirct: 'A',
-    transclude: true,
-    replace: true,
-    template: '<div ng-transclude></div>',
-    link: function ($scope, element, attrs) {}
-  };
-});
-
 function mainController($scope, $http) {
     $scope.formData = {};
-    var link = document.location.href;
-    var slash = link.lastIndexOf('/');
-    var sess_id = link.substring(slash+1);
 
     // 조건 얻기
     $http.get('/'+sess_id+'/conds')
