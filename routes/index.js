@@ -57,6 +57,11 @@ function update_session_expire(sessid) {
 
 router.get('/:sessid', (req, res, next) => {
   var sessid = req.params.sessid;
+  res.render('index', {'sess_id':sessid});
+});
+
+router.get('/:sessid/body', (req, res, next) => {
+  var sessid = req.params.sessid;
   var sql = "SELECT userid FROM member WHERE sess_id=? AND NOW() <= sess_expire";
   var arr = [sessid];
   pool.getConnection((err, conn) => {
@@ -67,7 +72,7 @@ router.get('/:sessid', (req, res, next) => {
       console.log(rows);
       if(rows.length > 0) {
         update_session_expire(sessid);
-        res.render('index', {'sess_id':sessid});
+        res.render('body', {'sess_id':sessid});
       }
       else
         res.send('해당 세션은 없거나 만기가 지났습니다.');

@@ -9,19 +9,20 @@
     <style>
         html { overflow-y: scroll; }
         body { padding-top: 50px; }
-        #cond-list { margin-bottom: 30px; }
-        #cond-form { margin-bottom: 50px; }
+        body, html {width: 100%; height: 100%; margin: 0; padding: 0}
+        .container {position: absolute;top: 0; left: 0; right: 0; height: 300px;}
+        .iframe-container {position: absolute; top: 300px; left: 0; right: 0; bottom: 0;}
+        .iframe-container iframe {display: block; width: 100%; height: 100%; border: none;}
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script src="/cond.js"></script>
 </head>
 <body ng-controller="mainController">
     <div class="container">
         <div class="jumbotron text-center">
             <h1>조건설정</h1>
         </div>
-        <div data-my-ad-sense>
+        <div>
           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
           <!-- p2pcbot -->
           <ins class="adsbygoogle"
@@ -32,64 +33,9 @@
           (adsbygoogle = window.adsbygoogle || []).push({});
           </script>
         </div>
-        <p align="right">[ 체크하면 조건이 삭제됩니다! ]</p>
-        <font color="red"><p align="center">{{ err }}</p></font>
-        <div id="cond-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div ng-repeat="cond in conds">
-                    <label>
-                        <input type="checkbox" style="width:1.5em;height:1.5em;padding:2px;" ng-click="deleteCond(cond.id)">
-                        <span style="vertical-align:5px;"> {{ cond.msg }} </span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div id="cond-form" class="row">
-            <div class="col-sm-7 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">코인</label>
-                        <div class="col-sm-8">
-                          <select class="form-control" ng-model="formData.currency">
-                            <option value="" selected disabled hidden>코인을 선택하세요!</option>
-                            <option value="BTC">BTC</option>
-                            <option value="ETH">ETH</option>
-                            <option value="XRP">XRP</option>
-                            <option value="BCH">BCH</option>
-                            <option value="LTC">LTC</option>
-                            <option value="EOS">EOS</option>
-                            <option value="DASH">DASH</option>
-                            <option value="XMR">XMR</option>
-                            <option value="ETC">ETC</option>
-                            <option value="QTUM">QTUM</option>
-                            <option value="BTG">BTG</option>
-                            <option value="ZEC">ZEC</option>
-                          </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">값</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control text-center" placeholder="조건 값을 입력하세요!" ng-model="formData.val">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">조건</label>
-                      <div class="col-sm-8">
-                        <select class="form-control" ng-model="formData.code">
-                          <option value="" selected disabled hidden>조건을 선택하세요!</option>
-                          <option value="%">등락율 이상이하!</option>
-                          <option value="cu">종가 이상!</option>
-                          <option value="cd">종가 이하!</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <button type="submit" class="btn btn-primary btn-lg" ng-click="createCond()">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    </div>
+    <div class="iframe-container">
+            <iframe src="/<%= sess_id %>/body" frameborder="0" width="100%">Your browser is kaput!</iframe>
     </div>
 </body>
 </html>
