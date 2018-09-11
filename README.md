@@ -11,3 +11,24 @@
 ## 가상화폐 알림봇 
 
 소스 저장소 : https://github.com/SDRLurker/p2pcbot
+
+## 의존성 관리
+
+```
+~/p2pcbot2$ npm install
+```
+
+## DB설정
+
+```
+~/p2pcbot2$ vi route/config.js
+var config = {};
+config.mysql = {
+  connectionLimit : 100,
+  host            : 'DB주소',
+  user            : 'DB사용자',
+  password        : 'DB비밀번호',
+  database        : 'DB명'
+}
+module.exports = config;
+```
